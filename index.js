@@ -2,6 +2,8 @@ const Hapi = require('hapi');
 const Path = require('path');
 const Inert = require('inert');
 
+const dbSeeder = require('./handlers/seeder.js');
+
 //const appHandler = require('./handlers/app.js');
 
 const models = require('./models/index.js');
@@ -22,7 +24,7 @@ models.sequelize.sync().then(function(){
 
 
     server.ext('onRequest', function(request, reply){
-        //request.models = models;
+        request.models = models;
         reply.continue();
     });
 
@@ -49,6 +51,31 @@ models.sequelize.sync().then(function(){
             handler: function (request, reply) {
                 //appHandler.home(request, reply);
                 reply('Hello World');
+            }
+        });
+
+        // Seed routes
+        server.route({
+            method: 'GET',
+            path:'/seed/users',
+            handler: function (request, reply) {
+                dbSeeder.seedUsers(request, reply);
+            }
+        });
+
+        server.route({
+            method: 'GET',
+            path:'/seed/currencies',
+            handler: function (request, reply) {
+                dbSeeder.seedCurrencies(request, reply);
+            }
+        });
+
+        server.route({
+            method: 'GET',
+            path:'/seed/clear',
+            handler: function (request, reply) {
+                dbSeeder.clearDb(request, reply);
             }
         });
 
