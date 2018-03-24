@@ -1,0 +1,24 @@
+{
+  "name": "blockhacks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "hapi": "^16.6.2",
+    "inert": "^4.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/J3rome/blockhacks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/J3rome/blockhacks/issues"
+  },
+  "homepage": "https://github.com/J3rome/blockhacks#readme"
+}

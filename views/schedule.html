@@ -1,0 +1,11 @@
+<div id="box-history">
+    <div class="history-schedule-container">
+        <div class="history-schedule-title">Horaire de déverrouillage</div>
+        <div class="history-column-name"><div class="column1-schedule-name">Journée</div><div class="column2-schedule-name">De</div><div class="column3-schedule-name">À</div></div>
+        <div class="history-event-list">
+            <% for(var i=0;i< schedule.length;i++){ %>
+            <div class="history-schedule-event-item"><div class="column1-schedule"><%= schedule[i].name %></div><div class="column2-schedule"><%= schedule[i].startHour %></div><div class="column3-schedule"><%= schedule[i].endHour %></div></div>
+            <% } %>
+        </div>
+    </div>
+</div>
