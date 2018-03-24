@@ -5,10 +5,10 @@ const Vision = require('vision');
 const Pug = require('pug');
 
 const dbSeeder = require('./handlers/seeder.js');
-
 const appHandler = require('./handlers/app.js');
-
+const ajaxHandler = require('./handlers/ajax.js');
 const models = require('./models/index.js');
+
 
 models.sequelize.sync().then(function(){
     // Create a server with a host and port
@@ -37,7 +37,8 @@ models.sequelize.sync().then(function(){
         server.views({
             engines: { pug: Pug },
             relativeTo: __dirname,
-            path: 'views'
+            path: 'views',
+            isCached: false
         });
 
         //Static route
@@ -66,9 +67,33 @@ models.sequelize.sync().then(function(){
 
         server.route({
             method: 'GET',
+            path:'/stripe',
+            handler: function (request, reply) {
+                reply.view('stripe', {});
+            }
+        });
+
+        // Ajax endpoints
+        server.route({
+            method: 'POST',
+            path:'/stripePayment',
+            handler: ajaxHandler.stripePayment
+        });
+
+        server.route({
+            method: 'GET',
             path:'/currencies',
             handler: appHandler.currencies
         });
+
+        // Test routes
+        server.route({
+            method: 'GET',
+            path:'/test/stripe/{amount}',
+            handler: appHandler.dummyTransaction
+        });
+
+
 
         // Seed routes
         server.route({
