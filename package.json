@@ -6,6 +6,7 @@
   "dependencies": {
     "hapi": "^16.6.2",
     "inert": "^4.2.1",
+    "jade-bootstrap": "^1.0.14",
     "mysql2": "^1.5.3",
     "pug": "^2.0.3",
     "sequelize": "^4.37.4",

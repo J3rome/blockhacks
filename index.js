@@ -6,7 +6,7 @@ const Pug = require('pug');
 
 const dbSeeder = require('./handlers/seeder.js');
 
-//const appHandler = require('./handlers/app.js');
+const appHandler = require('./handlers/app.js');
 
 const models = require('./models/index.js');
 
@@ -58,12 +58,16 @@ models.sequelize.sync().then(function(){
             method: 'GET',
             path:'/',
             handler: function (request, reply) {
-                //appHandler.home(request, reply);
-                //reply('Hello World');
-                reply.view('test', {
-                    testVar: 'testTitle'
+                reply.view('index', {
+                    title: 'testTitle'
                 });
             }
+        });
+
+        server.route({
+            method: 'GET',
+            path:'/currencies',
+            handler: appHandler.currencies
         });
 
         // Seed routes
