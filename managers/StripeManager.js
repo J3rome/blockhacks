@@ -19,6 +19,8 @@ module.exports = {
             callback({'status': 200, 'message': 'Stripe transaction successfull'});
         }).catch(function(err) {
             // Deal with an error
+            console.log("Got error from stripe");
+            console.log(err);
             callback(err);
         });
     },
@@ -31,6 +33,8 @@ module.exports = {
         }).then(function(charge){
             callback({'status': 200, 'message': 'Stripe transaction successfull'});
         }).catch(function(err){
+            console.log("Got an stripe error");
+            console.log(err);
             callback(err);
         })
     }

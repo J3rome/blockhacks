@@ -67,9 +67,48 @@ models.sequelize.sync().then(function(){
             method: 'GET',
             path:'/',
             handler: function (request, reply) {
-                reply.view('index', {
-                    title: 'testTitle'
-                });
+                reply.view('home', {title: 'Prockathon'});
+            }
+        });
+
+        server.route({
+            method: 'GET',
+            path:'/buy',
+            handler: function (request, reply) {
+                // Default value is USD
+                reply.view('buy', {title: 'Prockathon', dairate: 1, comparecurrency: 'US Dollars'});
+            }
+        });
+
+
+
+        server.route({
+            method: 'GET',
+            path:'/chosen',
+            handler: function (request, reply) {
+                var chosencurrency = request.params.currency;
+                console.log(chosencurrency);
+                if (chosencurrency === 'US Dollars') {
+                    var dairate = 1;
+                    var comparecurrency = 'US Dollars';
+                }
+                else if (chosencurrency === 'CAD Dollars') {
+                    var dairate = 1.28908;
+                    var comparecurrency = 'Canadian Dollars';
+                }
+                else if (chosencurrency === 'EUR Euros') {
+                    var dairate = 0.80919;
+                    var comparecurrency = 'Euros';
+                }
+                else if (chosencurrency === 'AUS Dollars') {
+                    var dairate = 1.29906;
+                    var comparecurrency = 'Australian Dollars';
+                }
+                else if (chosencurrency === 'CHF Francs') {
+                    var dairate = 0.94679;
+                    var comparecurrency = 'Swiss Francs';
+                }
+                reply.view('calculate', {title: 'Prockathon', dairate: dairate, comparecurrency: comparecurrency});
             }
         });
 
@@ -97,6 +136,35 @@ models.sequelize.sync().then(function(){
         //https://api.ethplorer.io/getAddressInfo/0x59D07d9b0EB06612A699F9F00ee76e5c876536ef?apiKey=freekey
 
         // Ajax endpoints
+        server.route({
+            method: 'POST',
+            path:'/calculateRate',
+            handler: function (request, reply) {
+                var chosenCurrency = request.payload.fiatCurrency;
+                var daiRate;
+                var currencyDisplayName;
+                if( chosenCurrency === 'CAD'){
+                    daiRate = 1.28908;
+                    currencyDisplayName = 'Canadian Dollars';
+                }else if(chosenCurrency === 'EUR'){
+                    daiRate = 0.80919;
+                    currencyDisplayName = 'Euros';
+                }else if(chosenCurrency === 'AUD'){
+                    daiRate = 1.29906;
+                    currencyDisplayName = 'Australian Dollars'
+                }else if(chosenCurrency === 'CHF'){
+                    daiRate = 0.94679;
+                    currencyDisplayName = 'Swiss Francs';
+                }else{
+                    daiRate = 1;
+                    currencyDisplayName = 'US Dollars';
+                }
+
+                reply({'rate' : daiRate, 'displayName': currencyDisplayName});
+            }
+        });
+
+
         server.route({
             method: 'POST',
             path:'/stripePayment',

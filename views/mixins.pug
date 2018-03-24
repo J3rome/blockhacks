@@ -1,0 +1,14 @@
+//- Pug form mixins
+
+//- Input fields mixin
+mixin input(inputlabel,inputtype, inputname, inputid, inputplaceholder)
+    label(for=inputid)&attributes(attributes)
+        span= inputlabel
+        input(type=inputtype,name=inputname,id=inputid,placeholder=inputplaceholder)
+
+//- Select fields mixin
+mixin select(id,selectlabel,selectname,options)
+    label&attributes(attributes)= selectlabel
+    select(id=id,name=selectname)
+        each obj in options
+            option(value=obj.val) #{obj.name}

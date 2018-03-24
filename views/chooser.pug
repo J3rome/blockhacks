@@ -1,0 +1,11 @@
+extends ../node_modules/jade-bootstrap/layouts/sticky-footer-navbar
+
+include mixins
+
+append body
+    .container
+        -var currencies = ['US Dollars','CAD Dollars','EUR Euros', 'AUS Dollars', 'CHF Francs']
+        form
+            +select('Choose a Fiat Currency:','selectbox',currencies).inline
+            button#BtnSumit(type='submit') Select
+            br

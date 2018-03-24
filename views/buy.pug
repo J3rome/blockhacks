@@ -1,0 +1,21 @@
+extends ../node_modules/jade-bootstrap/layouts/sticky-footer-navbar
+
+include mixins
+
+append body
+    .container
+        -var currencies = [{val:'USD',name:'US Dollars'}, {val:'CAD',name:'CA Dollars'}, {val:'EUR',name:'EUR euros'}, {val:'AUD',name:'AUS Dollars'},{val:'CHF',name:'CHF Francs'}]
+        +select('currencySelector','Choose a Fiat Currency:','selectbox',currencies).inline
+        br
+        p#exchangeRate
+          | The current exchange rate is 1 DAI =&nbsp
+          span.rate #{dairate}&nbsp
+          span.displayName #{comparecurrency}.
+        br
+        br
+        p Enter an amount of DAI you wish to purchase and get a quote in your chosen currency
+        input#inputCurrencyAmount(type="number", placeholder="Enter DAI amount", name="daiamount")
+        input#inputCurrency(type="hidden", value=comparecurrency, name="comparecurrency")
+        button#btnSubmit.hidden(type="submit") calculate
+
+        script(type='text/javascript', src='/js/buy.js')
