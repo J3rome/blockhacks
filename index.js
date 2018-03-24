@@ -27,7 +27,15 @@ models.sequelize.sync().then(function(){
 
     server.ext('onRequest', function(request, reply){
         request.models = models;
-        reply.continue();
+        // FIXME : retrieval should be done once per session, not on every request
+        request.models.user.findOne({
+            where: {
+                email: 'john@doe.com'
+            }
+        }).then(function(user){
+            request.currentUser = user;
+            reply.continue();
+        });
     });
 
     const provision = async () => {
@@ -59,6 +67,7 @@ models.sequelize.sync().then(function(){
             method: 'GET',
             path:'/',
             handler: function (request, reply) {
+                console.log(request.currentUser);
                 reply.view('index', {
                     title: 'testTitle'
                 });
