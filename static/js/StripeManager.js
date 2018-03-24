@@ -16,7 +16,7 @@ var StripeManager = {
                 }, function(resp, e){
                     if(resp.status === 200){
                         // TODO : Redirect to /balance
-                        alert("Transaction Succeded");
+                        window.location.href = '/balance';
                     }else{
                         alert("Transaction failed");
                     }

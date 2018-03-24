@@ -83,6 +83,12 @@ models.sequelize.sync().then(function(){
 
         server.route({
             method: 'GET',
+            path:'/balance',
+            handler: appHandler.userBalance
+        });
+
+        server.route({
+            method: 'GET',
             path:'/accountBalance/{accountAddress}',
             handler: appHandler.accountBalance
         });

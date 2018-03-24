@@ -36,5 +36,21 @@ module.exports = {
                 reply({'status' : 200, 'data' : trimmedBalances})
             }
         });
+    },
+    userBalance: function(request, reply){
+        var walletAdress = request.currentUser.wallet;
+        Request('https://api.ethplorer.io/getAddressInfo/'+walletAdress+'?apiKey=freekey', {json:true}, function(err, res, body){
+            if(body.error){
+                reply({'status' : 400, 'message': 'Couldn\'t retrieve account balance'})
+            }else{
+                var trimmedBalances = [];
+                body.tokens.forEach(function(token){
+                    trimmedBalances.push({name: token.tokenInfo.name, balance: new Intl.NumberFormat().format(token.balance)});
+                });
+                reply.view('balance', {
+                    tokens: trimmedBalances
+                });
+            }
+        });
     }
 };
