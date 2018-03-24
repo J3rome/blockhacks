@@ -1,6 +1,8 @@
 const Hapi = require('hapi');
 const Path = require('path');
 const Inert = require('inert');
+const Vision = require('vision');
+const Pug = require('pug');
 
 const dbSeeder = require('./handlers/seeder.js');
 
@@ -30,6 +32,13 @@ models.sequelize.sync().then(function(){
 
     const provision = async () => {
         await server.register(Inert);
+        await server.register(Vision);
+
+        server.views({
+            engines: { pug: Pug },
+            relativeTo: __dirname,
+            path: 'views'
+        });
 
         //Static route
         server.route({
@@ -50,7 +59,10 @@ models.sequelize.sync().then(function(){
             path:'/',
             handler: function (request, reply) {
                 //appHandler.home(request, reply);
-                reply('Hello World');
+                //reply('Hello World');
+                reply.view('test', {
+                    testVar: 'testTitle'
+                });
             }
         });
 
