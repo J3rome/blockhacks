@@ -16,7 +16,7 @@ var StripeManager = {
                 }, function(resp, e){
                     if(resp.status === 200){
                         // TODO : Redirect to /balance
-                        window.location.href = '/balance';
+                        window.location.href = '/success';
                     }else{
                         alert("Transaction failed");
                     }
@@ -28,7 +28,7 @@ var StripeManager = {
             var theAmount = parseInt($('#transactionAmount').val())*100;
             StripeManager.handler.open({
                 name: 'Prockathon',
-                description: 'Stripe test',
+                description: 'Buying some DAI coins !',
                 currency: 'cad',
                 amount: theAmount
             });

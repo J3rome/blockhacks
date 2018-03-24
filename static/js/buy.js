@@ -46,7 +46,7 @@ var BuyManager = {
                 }, function(resp, e){
                     if(resp.status === 200){
                         // TODO : Redirect to /balance
-                        window.location.href = '/balance';
+                        window.location.href = '/success';
                     }else{
                         alert("Transaction failed");
                     }
@@ -59,7 +59,7 @@ var BuyManager = {
             var theAmount = parseFloat($input.val()) * parseFloat($('#exchangeRate>.rate').text()) * 100;
             BuyManager.stripeHandler.open({
                 name: 'Prockathon',
-                description: 'Stripe test',
+                description: 'Buying DAI coins !',
                 currency: $currencySelector.val().toLowerCase(),
                 amount: parseInt(theAmount)
             });

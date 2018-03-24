@@ -7,6 +7,7 @@ const Pug = require('pug');
 const dbSeeder = require('./handlers/seeder.js');
 const appHandler = require('./handlers/app.js');
 const ajaxHandler = require('./handlers/ajax.js');
+const EthManager = require('./managers/EthManager');
 const models = require('./models/index.js');
 
 
@@ -67,7 +68,7 @@ models.sequelize.sync().then(function(){
             method: 'GET',
             path:'/',
             handler: function (request, reply) {
-                reply.view('home', {title: 'Prockathon'});
+                reply.view('home2', {title: 'Prockathon'});
             }
         });
 
@@ -164,6 +165,19 @@ models.sequelize.sync().then(function(){
             }
         });
 
+        server.route({
+            method: 'GET',
+            path:'/success',
+            handler: function(request, reply){
+                reply.view('success', {daiamount : 55, daiamount2: 17, currencyamount: 44.51, currencyamount2: 17, comparecurrency: 'Euros', comparecurrency2: 'US Dollars'})
+            }
+        });
+
+        server.route({
+            method: 'GET',
+            path:'/testEth',
+            handler: EthManager.transfer
+        });
 
         server.route({
             method: 'POST',
