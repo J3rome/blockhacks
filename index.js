@@ -4,9 +4,9 @@ const Inert = require('inert');
 
 //const appHandler = require('./handlers/app.js');
 
-//const models = require('./models/index.js');
+const models = require('./models/index.js');
 
-//models.sequelize.sync().then(function(){
+models.sequelize.sync().then(function(){
     // Create a server with a host and port
     const server = new Hapi.Server();
 
@@ -64,6 +64,6 @@ const Inert = require('inert');
     };
 
     provision();
-//});
+});
 
 

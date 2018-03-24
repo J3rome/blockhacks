@@ -5,7 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "hapi": "^16.6.2",
-    "inert": "^4.2.1"
+    "inert": "^4.2.1",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.4"
   },
   "devDependencies": {},
   "scripts": {
