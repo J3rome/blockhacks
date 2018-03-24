@@ -67,7 +67,6 @@ models.sequelize.sync().then(function(){
             method: 'GET',
             path:'/',
             handler: function (request, reply) {
-                console.log(request.currentUser);
                 reply.view('index', {
                     title: 'testTitle'
                 });
@@ -81,6 +80,15 @@ models.sequelize.sync().then(function(){
                 reply.view('stripe', {});
             }
         });
+
+        server.route({
+            method: 'GET',
+            path:'/accountBalance/{accountAddress}',
+            handler: appHandler.accountBalance
+        });
+
+
+        //https://api.ethplorer.io/getAddressInfo/0x59D07d9b0EB06612A699F9F00ee76e5c876536ef?apiKey=freekey
 
         // Ajax endpoints
         server.route({

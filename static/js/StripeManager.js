@@ -14,7 +14,12 @@ var StripeManager = {
                     'tokenId': token.id,
                     'fiatCurrency': 'cad'
                 }, function(resp, e){
-                    console.log(resp);
+                    if(resp.status === 200){
+                        // TODO : Redirect to /balance
+                        alert("Transaction Succeded");
+                    }else{
+                        alert("Transaction failed");
+                    }
                 });
             }
         });

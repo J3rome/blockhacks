@@ -1,4 +1,5 @@
 const StripeManager = require('../managers/StripeManager');
+const Request = require('request');
 
 module.exports = {
     currencies: function(request, reply){
@@ -19,6 +20,21 @@ module.exports = {
            }else{
                reply({'status':500, 'message': resp});
            }
+        });
+    },
+    accountBalance: function(request, reply){
+        var accountAddress = request.params.accountAddress;
+
+        Request('https://api.ethplorer.io/getAddressInfo/'+accountAddress+'?apiKey=freekey', {json:true}, function(err, res, body){
+            if(body.error){
+                reply({'status' : 400, 'message': 'Couldn\'t retrieve account balance'})
+            }else{
+                var trimmedBalances = {};
+                body.tokens.forEach(function(token){
+                    trimmedBalances[token.tokenInfo.name] = token.balance
+                });
+                reply({'status' : 200, 'data' : trimmedBalances})
+            }
         });
     }
 };

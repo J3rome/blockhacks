@@ -7,7 +7,7 @@ module.exports = {
                 lastName: 'Doe',
                 password: 'qwerty123',
                 email: 'john@doe.com',
-                wallet: 'rjifd53f#dd32'
+                wallet: '0x59D07d9b0EB06612A699F9F00ee76e5c876536ef'
             }
         }).then(function(event){
             reply({'status': 200, 'message' : 'User seeded'});
